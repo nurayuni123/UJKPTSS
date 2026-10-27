@@ -1,0 +1,351 @@
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MY TVET Dashboard</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    background: #f0f2f5;
+    color: #1f2328;
+    min-height: 100vh;
+    padding: 0 0 40px;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: #0f62fe;
+    color: #ffffff;
+    padding: 28px 32px 24px;
+  }
+  .header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .header p {
+    font-size: 13px;
+    opacity: 0.85;
+    margin-top: 2px;
+  }
+  .header-date {
+    font-size: 13px;
+    opacity: 0.85;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  /* ── Main container ── */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 28px 16px 0;
+  }
+
+  /* ── Section label ── */
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #57606a;
+    margin-bottom: 12px;
+  }
+
+  /* ── Cards row ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 640px) {
+    .cards { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .card-icon {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+  .card-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #57606a;
+    margin-bottom: 14px;
+  }
+
+  /* Students card */
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    font-size: 13px;
+    color: #57606a;
+  }
+  .stat-row strong {
+    color: #1f2328;
+    font-weight: 600;
+  }
+  .big-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: #0f62fe;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .sub-number {
+    font-size: 12px;
+    color: #57606a;
+    margin-bottom: 12px;
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    margin-top: 12px;
+  }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #57606a;
+    margin-bottom: 4px;
+  }
+  .progress-bar {
+    height: 7px;
+    background: #e5e7eb;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: #0f62fe;
+  }
+  .progress-fill.green  { background: #22c55e; }
+  .progress-fill.amber  { background: #f59e0b; }
+
+  /* Workshop status card */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #16a34a;
+    background: #dcfce7;
+    border-radius: 99px;
+    padding: 3px 10px;
+    margin-bottom: 14px;
+  }
+  .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #16a34a;
+  }
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 5px 0;
+    border-bottom: 1px solid #f0f2f5;
+    color: #57606a;
+  }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-row span:last-child {
+    font-weight: 500;
+    color: #1f2328;
+    text-align: right;
+  }
+
+  /* ── Checklist ── */
+  .checklist-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 40px;
+  }
+  .checklist-card .section-label {
+    margin-bottom: 20px;
+  }
+  .phases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 640px) {
+    .phases { grid-template-columns: 1fr; }
+  }
+  .phase-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    color: #3b82d4;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #e5e7eb;
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 13px;
+    color: #1f2328;
+    border-bottom: 1px solid #f7f8fa;
+  }
+  .check-item:last-child { border-bottom: none; }
+
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 1px 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .badge-done      { background: #dcfce7; color: #16a34a; }
+  .badge-progress  { background: #fef9c3; color: #a16207; }
+  .badge-pending   { background: #f1f5f9; color: #64748b; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: #57606a;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+    margin: 0 16px;
+  }
+</style>
+</head>
+<body>
+
+
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <h1>MY TVET Dashboard</h1>
+      <p>Workshop Management Overview</p>
+    </div>
+    <div class="header-date">Monday, 14 July 2025</div>
+  </div>
+</div>
+
+<div class="container">
+
+  
+  <p class="section-label">Overview</p>
+  <div class="cards">
+
+    
+    <div class="card">
+      <div class="card-icon">🎓</div>
+      <div class="card-title">Students Registered</div>
+      <div class="big-number">42</div>
+      <div class="sub-number">students enrolled in this session</div>
+      <div class="stat-row"><span>Checked In</span><strong>35</strong></div>
+      <div class="stat-row"><span>Absent</span><strong>7</strong></div>
+      <div class="progress-wrap">
+        <div class="progress-meta"><span>Attendance Rate</span><span>83%</span></div>
+        <div class="progress-bar"><div class="progress-fill green" style="width:83%"></div></div>
+      </div>
+    </div>
+
+    
+    <div class="card">
+      <div class="card-icon">📋</div>
+      <div class="card-title">Tasks Remaining</div>
+      <div class="big-number">5</div>
+      <div class="sub-number">tasks still need action today</div>
+      <div class="stat-row"><span>Total Tasks</span><strong>14</strong></div>
+      <div class="stat-row"><span>Completed</span><strong>9</strong></div>
+      <div class="stat-row"><span>In Progress</span><strong>2</strong></div>
+      <div class="progress-wrap">
+        <div class="progress-meta"><span>Completion Rate</span><span>64%</span></div>
+        <div class="progress-bar"><div class="progress-fill amber" style="width:64%"></div></div>
+      </div>
+    </div>
+
+    
+    <div class="card">
+      <div class="card-icon">🏭</div>
+      <div class="card-title">Workshop Status</div>
+      <div class="status-badge"><span class="status-dot"></span>In Progress</div>
+      <div class="detail-row"><span>Current Module</span><span>Module 3 – Safety</span></div>
+      <div class="detail-row"><span>Session Start</span><span>9:00 AM</span></div>
+      <div class="detail-row"><span>Expected End</span><span>4:00 PM</span></div>
+      <div class="detail-row"><span>Facilitator</span><span>Ms. Aminah Rashid</span></div>
+      <div class="detail-row"><span>Venue</span><span>Lab Block B, Room 2</span></div>
+    </div>
+
+  </div>
+
+  
+  <div class="checklist-card">
+    <p class="section-label">📋 Preparation Checklist</p>
+    <div class="phases">
+
+      
+      <div>
+        <div class="phase-title">📌 Pre-Workshop</div>
+        <div class="check-item"><span class="badge badge-done">Done</span>Send enrollment confirmation to students</div>
+        <div class="check-item"><span class="badge badge-done">Done</span>Prepare workshop materials and handouts</div>
+        <div class="check-item"><span class="badge badge-done">Done</span>Set up tools and equipment in the lab</div>
+        <div class="check-item"><span class="badge badge-done">Done</span>Confirm facilitator attendance</div>
+        <div class="check-item"><span class="badge badge-pending">Pending</span>Brief students on safety guidelines</div>
+      </div>
+
+      
+      <div>
+        <div class="phase-title">▶️ During Workshop</div>
+        <div class="check-item"><span class="badge badge-done">Done</span>Take student attendance</div>
+        <div class="check-item"><span class="badge badge-done">Done</span>Distribute exercise sheets</div>
+        <div class="check-item"><span class="badge badge-progress">In Progress</span>Monitor module progress</div>
+        <div class="check-item"><span class="badge badge-progress">In Progress</span>Address help requests from students</div>
+        <div class="check-item"><span class="badge badge-pending">Pending</span>Conduct mid-session check-in</div>
+      </div>
+
+      
+      <div>
+        <div class="phase-title">🏁 Post-Workshop</div>
+        <div class="check-item"><span class="badge badge-pending">Pending</span>Collect completed worksheets</div>
+        <div class="check-item"><span class="badge badge-pending">Pending</span>Export attendance report</div>
+        <div class="check-item"><span class="badge badge-pending">Pending</span>Send follow-up resources to students</div>
+        <div class="check-item"><span class="badge badge-pending">Pending</span>Submit facilitator session report</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">Made with IBM Bob</div>
+
+</body>
+</html>
